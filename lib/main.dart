@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static final GlobalKey _key = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,21 +61,64 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   //crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 24),
+                  children: const [
                     Flexible(
                       child: TextInputBox(
                         labelName: "Peso",
                         hintText: "Ex: 12,5",
-                        key: _key,
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    const AnimatedDropdownButton(
+                    SizedBox(width: 16),
+                    AnimatedDropdownButton(
                       optionsList: [
                         ["kg", "quilograma"],
                         ["g", "grama"],
-                        ["mg", "miligrama"]
+                        ["mg", "miligrama"],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    Flexible(
+                      child: TextInputBox(
+                        labelName: "Volume",
+                        hintText: "Ex: 12,5",
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    AnimatedDropdownButton(
+                      optionsList: [
+                        ["l", "litro"],
+                        ["ml", "mililitro"],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    Flexible(
+                      child: TextInputBox(
+                        labelName: "Tamanho",
+                        hintText: "Ex: 12,5",
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    AnimatedDropdownButton(
+                      optionsList: [
+                        ["m", "metro"],
+                        ["cm", "centímetro"],
+                        ["mm", "milímetro"],
                       ],
                     ),
                   ],
@@ -122,22 +163,6 @@ class _AnimatedDropdownButtonState extends State<AnimatedDropdownButton> {
   final Color backgroundButtonColor = const Color(0xFF0389D2);
   Color backgroundDropdownColor = const Color(0xFF0389D2);
   final Color setBackgroundDropdownColor = const Color(0xFFF5F5F5);
-
-  // final TextStyle dropdownButtonHeadline = const TextStyle(
-  //   fontSize: 16,
-  //   color: Color(0xFF468FF2),
-  //   fontWeight: FontWeight.bold,
-  // );
-  // final TextStyle dropdownButtonOptions = const TextStyle(
-  //   fontSize: 12,
-  //   color: Color(0xFF468FF2),
-  // );
-  // final TextStyle dropdownButtonTagline = const TextStyle(
-  //   fontSize: 10,
-  //   color: Color(0xFFB2B2B2),
-  // );
-  // final Color backgroundButtonColor = const Color(0xFFFFFFFF);
-  // final Color backgroundDropdownColor = const Color(0xFFF5F5F5);
 
   bool isOpen = false;
   BorderRadius borderButton = BorderRadius.circular(24);
@@ -200,42 +225,19 @@ class _AnimatedDropdownButtonState extends State<AnimatedDropdownButton> {
                 SizedBox(
                   height: heightButton,
                 ),
-                Flexible(
-                  flex: 1,
-                  child: InkWell(
-                    onTap: () {
-                      _switchOptions(0);
-                    },
-                    child: Text(
-                      widget.optionsList[0][1],
-                      style: dropdownButtonOptions,
+                for (int i = 0; i < widget.optionsList.length; i++)
+                  Flexible(
+                    flex: 1,
+                    child: InkWell(
+                      onTap: () {
+                        _switchOptions(i);
+                      },
+                      child: Text(
+                        widget.optionsList[i][1],
+                        style: dropdownButtonOptions,
+                      ),
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: InkWell(
-                    onTap: () {
-                      _switchOptions(1);
-                    },
-                    child: Text(
-                      widget.optionsList[1][1],
-                      style: dropdownButtonOptions,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: InkWell(
-                    onTap: () {
-                      _switchOptions(2);
-                    },
-                    child: Text(
-                      widget.optionsList[2][1],
-                      style: dropdownButtonOptions,
-                    ),
-                  ),
-                ),
                 const Flexible(
                   flex: 1,
                   child: SizedBox(),
